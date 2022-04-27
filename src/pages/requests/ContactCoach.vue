@@ -1,3 +1,3 @@
 <template>
-    CONTACT A COAH
+    CONTACT A COACH
 </template>

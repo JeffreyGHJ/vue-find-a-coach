@@ -25,10 +25,9 @@
 
 <script>
 import CoachItem from '@/components/coaches/CoachItem.vue';
-import BaseButton from '@/components/UI/BaseButton.vue';
 
 export default {
-  components: { CoachItem, BaseButton },
+  components: { CoachItem },
     computed: {
         filteredCoaches() {
             return this.$store.getters['coaches/coaches'];
