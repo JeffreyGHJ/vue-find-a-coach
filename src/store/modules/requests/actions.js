@@ -2,7 +2,7 @@ export default {
     contactCoach(context, payload) {
         const newRequest = {
             id: new Date().toISOString(),
-            coachId: payload.coachId,
+            coachId: payload.id,
             userEmail: payload.email,
             message: payload.message
         };
