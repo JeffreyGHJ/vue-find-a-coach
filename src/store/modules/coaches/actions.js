@@ -10,14 +10,20 @@ export default {
             areas: data.areas
         };
 
+        const token = context.rootGetters.token;
+
         // Firebase requires '.json' at the end
-        const response = await fetch(`https://vue-find-a-coach-96fc8-default-rtdb.firebaseio.com/coaches/${userId}.json`, {
-            method: 'PUT',      // configure fetch: default = GET --> PUT = create or overwrite
-            body: JSON.stringify(coachData)
-        });          // .then(); --> async await is better
+        const response = await fetch(
+            `https://vue-find-a-coach-96fc8-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` + 
+                token, 
+            {
+                method: 'PUT',      // configure fetch: default = GET --> PUT = create or overwrite
+                body: JSON.stringify(coachData)
+            }
+        );          // .then(); --> async await is better
 
         //const responseData = await response.json();
-        
+
         if (!response.ok) {
             // ERROR HANDLING
         }
@@ -39,14 +45,14 @@ export default {
 
         const responseData = await response.json();
 
-        if ( !response.ok ) {
+        if (!response.ok) {
             const error = new Error(responseData.message || 'Failed to fetch!');
             throw error;
         }
 
         const coaches = [];
 
-        for( const key in responseData ) {
+        for (const key in responseData) {
             const coach = {
                 id: key,
                 firstName: responseData[key].firstName,
@@ -57,7 +63,7 @@ export default {
             };
             coaches.push(coach);
         }
-        context.commit('setCoaches', coaches) 
+        context.commit('setCoaches', coaches)
         context.commit('setFetchTimestamp');
     }
 };
